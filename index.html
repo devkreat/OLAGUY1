@@ -140,7 +140,7 @@
                 <img src="assets/img/check.png" alt="" height="182" width="182" /><br /><br />
                 <h4>Your application has been successfully submited!</h4>
               </div>
-              <form action ="https://getform.io/f/b181301b-5014-4d5c-be2e-19339e65dcbc" method ="post" id="cntfm" enctype="multipart/form-data">
+              <form id="my-form" action ="https://getform.io/f/b181301b-5014-4d5c-be2e-19339e65dcbc" method ="post" id="cntfm" enctype="multipart/form-data">
                 <div id="msgSubmit" class="h3 text-center cent hidden"></div>
                 <div class="row ptb-20">
                   <div class="col-lg-6 col-md-6">
@@ -337,6 +337,63 @@
         </div>
       </div>
     </footer>
+
+    <script>
+
+        window.addEventListener("DOMContentLoaded", function() {
+                                          
+                                          // get the form elements defined in your form HTML above
+                                          
+                                          var form = document.getElementById("my-form");
+                                          var button = document.getElementById("btn");
+                                          var status = document.getElementById("my-form-status");
+                                      
+                                          // Success and Error functions for after the form is submitted
+                                          
+                                          function success() {
+                                            form.reset();
+                                            button.style = "display: none ";
+                                            // status.innerHTML = "success.html";
+                                           windows.location="success.html"
+                                    //         window.location.replace("index.html");
+                                                    //   status.innerHTML = "Provided Details Already been used";
+                                    
+                                          }
+                                      
+                                          function error() {
+                                            // status.innerHTML = "Oops! There was a problem.";
+                                           window.location.replace("success.html");
+
+
+                                          }
+                                      
+                                          // handle the form submission event
+                                      
+                                          form.addEventListener("submit", function(ev) {
+                                            ev.preventDefault();
+                                            var data = new FormData(form);
+                                            ajax(form.method, form.action, data, success, error);
+                                          });
+                                        });
+                                        
+                                        // helper function for sending an AJAX request
+                                      
+                                        function ajax(method, url, data, success, error) {
+                                          var xhr = new XMLHttpRequest();
+                                          xhr.open(method, url);
+                                          xhr.setRequestHeader("Accept", "application/json");
+                                          xhr.onreadystatechange = function() {
+                                            if (xhr.readyState !== XMLHttpRequest.DONE) return;
+                                            if (xhr.status === 700) {
+                                              success(xhr.response, xhr.responseType);
+                                            } else {
+                                              error(xhr.status, xhr.response, xhr.responseType);
+                                            }
+                                          };
+                                          xhr.send(data);
+                                        }
+
+    </script>
 
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.html"></script>
 
